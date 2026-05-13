@@ -37,19 +37,6 @@
 | 실행 환경 | Jupyter Notebook |
 | 시각화 | LangGraph Mermaid Graph |
 
-> 참고: 기존 코드에서는 `langchain_community.llms.Ollama`를 사용했지만, 최신 LangChain에서는 `langchain_ollama` 패키지의 `OllamaLLM` 사용을 권장합니다.
-
-```python
-# 기존 코드
-from langchain_community.llms import Ollama
-llm = Ollama(model="exaone3.5:2.4b")
-
-# 최신 권장 방식
-# pip install -U langchain-ollama
-from langchain_ollama import OllamaLLM
-llm = OllamaLLM(model="exaone3.5:2.4b")
-```
-
 ---
 
 ## 3. 멀티 에이전트 구조
@@ -89,10 +76,8 @@ answer
   ↓
 END
 ```
+<img width="108" height="432" alt="output" src="https://github.com/user-attachments/assets/76c30794-aadf-406f-bebc-e114ee0f2f10" />
 
-<p align="center">
-  <img src="images/langgraph_structure.png" width="500">
-</p>
 
 그래프는 `StateGraph`를 이용해 직접 구성했습니다.
 
@@ -148,9 +133,11 @@ app = graph.compile()
 
 실제 실행 화면은 아래 이미지처럼 정리했습니다.
 
-<p align="center">
-  <img src="images/result_example.png" width="750">
-</p>
+
+<img width="586" height="505" alt="1" src="https://github.com/user-attachments/assets/4c721cd4-cc21-4d81-b764-42cfaef367a7" />
+<img width="629" height="529" alt="2" src="https://github.com/user-attachments/assets/77c68f99-82e5-45d5-8435-f3ff3f04ef2f" />
+<img width="911" height="97" alt="3" src="https://github.com/user-attachments/assets/96097186-80f3-4af9-8cdb-3dc43dcd8f76" />
+
 
 ---
 
@@ -224,68 +211,5 @@ def answer_agent(state: AgentState):
 
 ---
 
-## 8. 실행 방법
-
-### 1. Ollama 설치 및 모델 다운로드
-
-```bash
-ollama pull exaone3.5:2.4b
-```
-
-### 2. 필요한 패키지 설치
-
-```bash
-pip install langchain langgraph langchain-ollama
-```
-
-기존 방식으로 실행하려면 아래 패키지도 필요할 수 있습니다.
-
-```bash
-pip install langchain-community
-```
-
-### 3. 노트북 실행
-
-```bash
-jupyter notebook lang_graph_prac.ipynb
-```
-
----
-
-## 9. 프로젝트를 통해 보여줄 수 있는 역량
-
-이 실습을 통해 아래 내용을 구현했습니다.
-
-- LangGraph의 `StateGraph` 기반 워크플로우 구성
-- Agent별 역할 분리
-- Agent 간 상태 전달 구조 설계
-- LangChain `PromptTemplate`을 이용한 프롬프트 체이닝
-- Ollama 로컬 LLM 연동
-- 그래프 구조 시각화
-- 멀티 에이전트 기반 응답 생성 흐름 구현
-
-특히 단순 LLM 호출이 아니라, **입력 → 중간 결과 → 최종 응답**으로 이어지는 구조를 직접 설계했다는 점을 포트폴리오에서 강조할 수 있습니다.
-
----
-
-## 10. 개선 방향
-
-현재는 순차 실행 구조로 구성했지만, 이후에는 아래 방향으로 확장할 수 있습니다.
-
-- 조건부 분기 추가  
-  예: 통증이 있는 경우 병원 상담 안내 Agent로 분기
-
-- RAG 연결  
-  운동 관련 문서나 가이드라인을 검색한 뒤 답변에 반영
-
-- 사용자 프로필 반영  
-  나이, 체중, 운동 경험, 부상 여부 등을 상태값에 추가
-
-- 웹 서비스화  
-  Streamlit 또는 FastAPI를 이용해 간단한 운동 추천 챗봇으로 확장
-
----
-
-## 한 줄 정리
 
 > LangGraph를 이용해 증상 추출, 운동 후보 추천, 최종 답변 생성을 분리한 멀티 에이전트 워크플로우를 구현한 프로젝트입니다.
